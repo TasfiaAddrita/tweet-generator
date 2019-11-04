@@ -1,1 +1,10 @@
-<h1>{{ word }}</h1>
+<h1>random word generator</h1>
+
+<form action="/" method="POST">
+    Num: <input type="text" name="num"><br>
+    <input type="submit" value="Submit">
+</form>
+
+{% for word in words_list %}
+    {{ word }}
+{% endfor %}
