@@ -22,7 +22,7 @@ def random_words(words=[]):
             num_words = 1
         else:
             num_words = int(num_words)
-        word_distribution = get_word_distribution(get_words('text/test.txt'))
+        word_distribution = get_word_distribution(get_words('corpus/test.txt'))
         random_words_list = []
         for _ in range(num_words):
             random_word = sample(word_distribution)
