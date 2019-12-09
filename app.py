@@ -3,7 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for
 # from bson.objectid import ObjectId
 import os
 from datetime import datetime
-from src.sample import * 
+from src import util
+from src import markov_chain
 
 # local deployment
 # client = MongoClient()
@@ -13,7 +14,7 @@ from src.sample import *
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-def random_words(words=[]):
+def generate_sentence():
     if request.method == 'GET':
         return render_template('index.html')
     else:
@@ -22,12 +23,10 @@ def random_words(words=[]):
             num_words = 1
         else:
             num_words = int(num_words)
-        word_distribution = get_word_distribution(get_words('corpus/test.txt'))
-        random_words_list = []
-        for _ in range(num_words):
-            random_word = sample(word_distribution)
-            random_words_list.append(random_word)
-        return render_template('index.html', words_list=random_words_list)
+        text = './corpus/three_wishes.txt'
+        words_list = util.get_words(text)
+        markov = markov_chain.MarkovChain(4)
+        return render_template('index.html', sentence=markov.build_sentence(num_words, words_list))
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.environ.get('PORT', 5000))
