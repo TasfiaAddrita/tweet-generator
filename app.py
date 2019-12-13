@@ -23,9 +23,9 @@ def generate_sentence():
             num_words = 1
         else:
             num_words = int(num_words)
-        text = './corpus/three_wishes.txt'
+        text = './corpus/republic.txt'
         words_list = util.get_words(text)
-        markov = markov_chain.MarkovChain(4)
+        markov = markov_chain.MarkovChain(6)
         return render_template('index.html', sentence=markov.build_sentence(num_words, words_list))
 
 if __name__ == '__main__':
